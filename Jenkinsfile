@@ -27,12 +27,6 @@ pipeline {
       }
     }
 
-    stage('Build & Tests - PLONESAAS') {
-      steps {
-        build job: '../eea.docker.plonesaas/master', parameters: [[$class: 'StringParameterValue', name: 'TARGET_BRANCH', value: 'master']]
-      }
-    }
-
     stage('Release - PLONE') {
       steps {
         node(label: 'docker') {
