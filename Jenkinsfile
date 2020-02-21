@@ -10,12 +10,9 @@ pipeline {
       steps {
         node(label: 'clair') {
          script {
-           try {
-             sh '''/scan_catalog_entry.sh templates/plone'''
+           catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
              sh '''/scan_catalog_entry.sh  templates/plonesaas'''
-           } catch (err) {
-              echo "Unstable: ${err}"
-           }
+           } 
          }
        }
      }
