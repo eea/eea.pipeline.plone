@@ -44,7 +44,7 @@ pipeline {
       steps {
         node(label: 'docker') {
           withCredentials([string(credentialsId: 'eea-jenkins-token', variable: 'GITHUB_TOKEN'), string(credentialsId: 'plonesaas-devel-trigger', variable: 'TRIGGER_URL'), string(credentialsId: 'plonesaas-trigger', variable: 'TRIGGER_MAIN_URL'),usernamePassword(credentialsId: 'jekinsdockerhub', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
-           sh '''docker pull eeacms/gitflow; docker run -i --rm --name="$BUILD_TAG-nightly-plonesaas" -e GIT_BRANCH="master" -e GIT_NAME="eea.docker.plonesaas" -e GIT_TOKEN="$GITHUB_TOKEN" -e TRIGGER_MAIN_URL="$TRIGGER_MAIN_URL" -e DOCKERHUB_USER="$DOCKERHUB_USER" -e DOCKERHUB_PASS="$DOCKERHUB_PASS" -e DOCKERHUB_REPO="eeacms/plonesaas" -e DEPENDENT_DOCKERFILE_URL="devel/Dockerfile"  -e TRIGGER_RELEASE="eeacms/plonesaas-devel;$TRIGGER_URL" eeacms/gitflow'''
+           sh '''docker pull eeacms/gitflow; docker run -i --rm --name="$BUILD_TAG-nightly-plonesaas" -e GIT_BRANCH="master" -e GIT_NAME="eea.docker.plonesaas" -e GIT_TOKEN="$GITHUB_TOKEN" -e TRIGGER_MAIN_URL="$TRIGGER_MAIN_URL" -e DOCKERHUB_USER="$DOCKERHUB_USER" -e DOCKERHUB_PASS="$DOCKERHUB_PASS" -e DOCKERHUB_REPO="eeacms/plonesaas" -e DEPENDENT_DOCKERFILE_URL="devel/Dockerfile"  -e TRIGGER_RELEASE="eeacms/plonesaas-devel;$TRIGGER_URL" -e GITFLOW_BEHAVIOR="TAG_ONLY" eeacms/gitflow'''
          }
        }
      }
