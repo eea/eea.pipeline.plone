@@ -6,18 +6,6 @@ pipeline {
 
   stages {
 
-    stage('Scan used images with clair') {
-      steps {
-        node(label: 'clair') {
-         script {
-           catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-             sh '''/scan_catalog_entry.sh  templates/plonesaas'''
-           } 
-         }
-       }
-     }
-   }
-
     stage('Build & Tests - PLONE') {
       steps {
         build job: '../eea.docker.plone/master', parameters: [[$class: 'StringParameterValue', name: 'TARGET_BRANCH', value: 'master']]
